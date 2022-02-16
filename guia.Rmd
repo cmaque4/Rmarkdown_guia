@@ -1,0 +1,894 @@
+---
+title: Introduccion a Rmarckdown
+author: "Carlos Puma"
+date: "3/10/2021"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: darkly
+---
+
+# Presentación 
+
+hola amigos esta es una guia de como manejar R de una forma más didactica y con facilidad, debido a que la misma interración con este entorno a veces puede ser dificultoso, sin embargo, es una super herramienta que nos permitirá realizar diferentes cosas, pongo todo lo que he aprendido durante este tiempo que estoy manejando el programa. Espero que ayude para que puedan iniciar su propio proceso de aprendizaje con este programa
+
+![*Gráfica realizada por Allison Horst*](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/monster_support.jpg)
+
+
+
+# Primeros pasos en el entorno de R
+
+![*Gráfica realizada por Allison Horst*](https://bookdown.org/tiagoandremarques/ecomodbook/extfiles/monsteRs.jpg)
+
+
+Al momento de entrar al entorno de Rstudio, hay que saber que esta se divide en 4 partes o recuadros, los cuales son: *Script*, *Environment*, *Consola* y *Figuras y Archivos* (Ver Figura 1). 
+
+### Algunos atajos para manejar R
+
+1. Para limpiar la consola debemos realizar   : Ctrl + L
+2. Para correr las lineas de codigo           : Ctrl + Intro
+3. Para colocar algún comentario en el Script : solo colocar #
+
+### Para poner nombre a un objeto
+
+Para poner poner un nombre a un objeto se puede utilizar los siguientes signos: *<-* o *=*. En este caso vamos a utilizar la concatenación **c()**, la cual nos va a ayudar a guardan conjuntos de datos
+
+```{r eval=FALSE}
+ejemplo1 <- c(1,2,3)
+```
+
+```{r}
+ejemplo2 = c(1,2,3,4)
+```
+
+### Secuencia de números
+
+Para crear una secuencia, se puede hacer de diferentes formas
+
+```{r}
+y <- 1:5
+```
+
+```{r}
+z <- seq(from=2, to= 10, by=2)
+```
+
+Aqui podremos hacerlo de dos maneras, pero de igual manera van a tener el mismo resultado. Hay que comprender que se pueden realizar varias cosas de maneras distintas, y que los resultados van a ser los mismo, esto depende de nuestro propio estilo
+
+```{r}
+v <- rep(1, 5)
+```
+
+```{r}
+v <- rep(x = 1, times = 5)
+```
+
+### Remover o Borrar objetos
+
+Cuando nuestro **Environment** esta lleno, y no nos permita continuar con nuestro trabajo de manera ordenada, y exitan objetos que ya no vamos a utilizar podemos borrarlos, y esto se hace con la siguiente función **rm()**. 
+Esta es muy simple de utilizar solo se coloca dentro de los parentesis el objeto que no necesitemos, esto podemos hacerlo de manera individual como en grupo. Por ejemplo, los objetos que creamos como son ejemplo, ejemplo2, v, z vamos a borrarlos. No importa el orden o si lo hacemos en grupo o individualmente
+
+```{r eval=FALSE}
+rm(ejemplo)
+```
+
+```{r eval=FALSE}
+rm(ejemplo2, v, z)
+```
+
+### Creación de matrices
+
+Las matrices que se pueden crear, son de tipo numerico, pero si queremos que esten los tipos de datos, como son los caracteres, estos se podran visualizar en los **Data frame** que seria las bases de datos en si, que los vamos a extraer de bases de datos como excel o spss o de otra base. Esto se verá más adelante
+
+```{r eval=FALSE}
+d <- matrix(data = c(1,2,3,4,5,6,7,8,9), nrow = 3, ncol = 3)
+```
+
+```{r}
+r <- matrix(data = c(1,2,3,4,5,6,7,8,9), nrow = 3, ncol = 3, byrow = TRUE)
+```
+
+
+#### Manejo de matrices
+
+Nosotros podemos manejar nuestra matrix con sus datos numericos respectivos, de diferentes maneras. Para hacer esto primero vamos a crear diferentes objetos, que contengan datos
+
+```{r}
+objeto1 <- c(126,123,453,654,765,978,869,654,433,186)
+```
+
+```{r}
+objeto2 <- c(23,45,65,87,97,54,64,23,54,91)
+```
+
+```{r}
+objeto3 <- c(1,2,3,4,5,6,7,8,9,10)
+```
+
+```{r}
+objeto4 <- c(345,567,234,645,234,867,656,300,876,343)
+```
+
+
+
+Luego de obtener los objetos con datos, vamos a manipularos. Primero vamos a reunirlos de dos en dos, para que podamos ver que podemos combinarlos, sin embargo esto tambien lo podemos hacer con otra función como seria **cbind()**, la cual va a combinar nuestros datos por columnas, pero si queremos combinarlo por filas podemos utlizar **rbind()**
+
+
+```{r}
+A <- matrix(data = c(objeto1,objeto2), nrow = 10, ncol = 2)
+```
+
+
+```{r}
+B <- matrix(data = c(objeto3,objeto4), nrow = 10, ncol = 2)
+```
+
+
+```{r}
+C <- matrix(data = c(objeto1,objeto2,objeto3,objeto4), nrow = 10, ncol = 4)
+```
+
+
+```{r}
+base <- cbind(A,B)
+```
+
+
+Luego de que tengamos nuestro objeto y que este tenga los 4 objetos, podemos borrar los objetos que no necesitemos, que seria los objetos A, B Y C
+
+
+```{r}
+rm(A,B,C)
+```
+
+#### Elegir un elemento
+
+Cuando ya tengamos nuestro objeto general, al cual hemos denominado como base, podemos escoger un ejemplo, ya sea una fila o columna, siguiendo esta caracteristica: 
+
+
+> objeto [fila,columna]
+
+
+Como se puede ver, dentro de los parentesis se estan las filas y columnas separadas por la coma, esto lo vamos a entender a continuación
+
+Como se puede ser, aqui se escogió la fila 2, columna 1 de la base y se obtubo 123, lo cual es correcto
+
+```{r}
+base[2,1]
+```
+
+Aqui vamos a obtener todos los elementos que esten en la fila 1 de la base
+
+```{r}
+base[1,]
+```
+
+En este caso hemos escogido las 3 primeras filas, pero utilizando la concatenación **c()**, esta es una forma y la otra en con el uso de los dos puntos **:**. 
+
+```{r}
+base[c(1,2,3), ]
+```
+
+```{r}
+base[1:3, ]
+```
+
+Pero tambien podemos escoger cualquiera no importa el orden. Aqui vamos a esocger los 5 últimos 
+
+```{r}
+base[6:10, ]
+```
+
+Para obtener columnas, se procede de igual manera, pero ahora se pondrá enfasis en la parte que sigue a la coma. Vamos a realizar las combinaciones ya hechas en las filas
+
+
+```{r}
+base[ ,1]
+```
+
+```{r}
+base[ ,c(1,2)]
+```
+
+```{r}
+base[ ,1:2]
+```
+
+```{r}
+base[6:10, 4]
+```
+
+```{r}
+base[c(1,10),c(1,4)]
+```
+
+Para obtener nuestros resultados sin una fila o columna podemos utilizar el menos *-* para hacer esto, por ejemplo
+
+```{r}
+base[ ,-c(4)]
+```
+
+```{r}
+base[-c(6:10),]
+```
+
+Para poder nombre a nuestras matrix, es muy facil y ya con esto lo convertiriamos a un **data frame** el cual es lo más normal que vamos a obtener para obtener y analizar datos
+
+```{r}
+base <- data.frame(objeto1, objeto2, objeto3, objeto4)
+```
+
+
+
+# Analisis de Valores perdidos
+
+Para revisar si nuestra **Data Frame** tiene valores perdidos o espacios donde no se encuentre información, y nuestros datos sean extensos, podemos utilizar las siguientes formas para poder ver si hay estos en nuestros datos
+
+## Revisión de valores perdidos
+
+### Primera Forma
+
+Nosotros podemos verificar la cantidad de valores perdidos con la función **is.na ()** o **any(is.na())** , esto nos servirá cuando nuestra base de datos es pequeña, ya que con la simple mirada podemos identificar si nuestra base de datos tiene datos perdidos. Ejemplo, vamos a utilizar las funciones mencionadas con nuestra base de datos **base** y podremos ver en las dos funciones que no sale falso en todas las casillas de nuestra base de datos, porque no hay ningun dato faltante, y en la segunda nos sale un **False** de manera general porque no hay ningun dato faltante o NA
+
+
+```{r}
+is.na(base)
+```
+
+
+```{r}
+any(is.na(base))
+```
+
+
+Pero ahora veamos un ejemplo cuando hay NA´s la cual vamos a utilizar nuestra **base** pero la vamos a denomina con otro nombre para ver estos casos de identificación de valores perdidos
+
+```{r}
+base2<-base
+```
+
+Despues de crear nuestra base de datos nueva **base2** vamos a quitar valores y reemplazarlos con NA´s, pero esto es para ver el ejemplo
+
+```{r}
+base2[2,3] <- NA
+```
+
+```{r}
+base2[5,] <- NA
+```
+
+Como ahora tenemos NA´s en nuestra base de datos vamos a ver la identificación
+
+```{r}
+is.na(base2)
+```
+
+```{r}
+any(is.na(base2))
+```
+
+
+Ahora podemos ver que sale **TRUE** en ambos casos, mostrando que hay valores perdidos
+
+### Segunda forma 
+
+Otra de identificar los valores perdidos es utilizando **complete.cases()** con el cual vamos a identicar y escoger los datos ya sea completos y con NA´s de nuestra base de datos. Esta función nos ayuda a identificar en que fila hay valores perdidos
+
+Primero vamos a ver que con **complete.cases()** el cual muestra que las filas que tienen valores perdidos apareceran con **TRUE**. Segundo vamos guardarla en **indices** y luego como ya hemos trabajado vamos a utilizar los corchete, con ello vamos a poder seleccionar las filas que tienen todos sus datos completos, podemos ver que separó dos filas las cuales no nos permitiran hacer un analisis correcto porque contienen NA´s
+
+
+```{r}
+complete.cases(base2)
+```
+
+
+```{r}
+indices <- complete.cases(base2)
+```
+
+
+```{r}
+indices.completos <- base2[indices,]
+```
+
+
+```{r}
+indices.completos
+```
+
+
+Para el caso de que querramos analizar las filas que tiene valores perdidos, podemos utilizar el signo (!) la cual nos permitirá invertir los TRUE y FALSE y destará las filas con NA´s. Por este motivo la vamos autilizar y podemos agruparalos y poder analizar los datos faltantes y no buscar fila por fila 
+
+
+```{r}
+indices.incompletos <- !indices
+```
+
+```{r}
+base2[indices.incompletos,]
+```
+
+
+
+
+
+# Instalación y Llamado de Paquetes
+
+Al iniciar con el proceso estadistico debemos tener instalados los diferentes paquetes y luego llamarlos. Para instalar los diferentes paquetes que necesitemos, debemos realizar una de las siguientes formas
+
+
+
+
+## Instalación de Paquetes : Primera Opción
+
+La primera forma para poder instalar los paquetes es dirigirnos **Figuras y Archivos** (Ver Figura 1). Luego darle clic a **Packages** y **Install**, despues de eso nos saldra una pequeña pestaña (Ver Figura 2). Ahi podemos escribir el nombre del paquete que necesitemos y luego darle **Install**. Ya con eso empezará a descargar el paquete en su dispositivo.
+
+
+![Figura 1. Partes de Rstudio](https://bookdown.org/paradinas_iosu/Prueba/images/Rstudio_WI.png)
+
+
+![Figura 2. Install Packages](https://i.stack.imgur.com/JBURQ.png)
+
+
+
+
+## Instalación de Paquetes : Segunda Opción
+
+La segunda opción es escribir en el Script la siguiente función "install.packages("")" en donde colocaremos el nombre del paquete dentro de las comillas y luego correr (Run) la función
+
+> install.packages("")
+
+Y si queremos hacerlo con varios paquetes podemos poner de esta manera
+
+> install.packages(c("tidyverse", "ggplot2", "apa"))
+
+
+## Instalación de Paquetes : Tercera forma
+
+Para esto debemos instalar el paquete `pacman` el cual ofrece la función `p_load()`, estas linea de código nos instalará los paquetes que necesitemos y además también los llamará para su uso siendo el código de esta manera. 
+
+> pacman::p_load(tidyverse, ggplot2, apa)
+
+
+## Instalación de Paquetes : Cuarta Forma
+
+Esta tercera forma es la que combina la instalación de paquetes y el llamado de estos. Como mencioné en los pasos anteriores se puede instalar los paquetes y luego en el Script colocar ***library()*** o ***require()*** cualquiera de las dos formas sirve para llamar y empezar a trabajar. Sin embargo, esta opción junta las dos y nos permite hacer nuestros procesos en tan solo 3 clics
+
+Para realizar la instalación y el llamado de los paquetes debemos correr (Run) la función **ipak()** 
+
+```{r}
+ipak <- function(pkg){
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) 
+        install.packages(new.pkg, dependencies = TRUE)
+    sapply(pkg, require, character.only = TRUE)
+}
+```
+
+Luego de realizar esto, debemos correr (Run) la linea **packages()** que contiene los diversos paquetes que querremos utilizar. Aqui podemos agregar todos los paquetes que vamos a utilizar, lo importante es que debemos colocarlos dentro de las comillas y tener cuidado de no poner las comas 
+
+```{r}
+packages <- c("ggplot2", "plyr", "reshape2", "RColorBrewer", "scales", "grid")
+```
+
+Y para finalizar debemos correr (Run) la linea **ipak()**, con esto ya se realizará el proceso de instalación y de llamado de los paquetes
+
+```{r echo=TRUE}
+ipak(packages)
+```
+
+
+
+
+
+# Llamado de las Bases de datos
+
+
+![*Gráfica realizada por Allison Horst*](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_6.jpg)
+
+
+
+Al momento de tener ya los paquetes que vamos a utilizar, debemos tener nuestra base de datos, para poder tenerla en nuestro sistema debemos realizar alguna de las siguientes opciones. Pero antes de realizar este proceso debemos tener instalado los siguientes paquetes 
+
+> package(haven),  package(foreign),  package(openxlsx),  package(readxl)
+
+Los cuales nos ayudarán a poder leer los archivos que contienen nuestros datos, estos pueden ser *excel*, *csv* etc. 
+
+
+
+## Llamado de Base de Datos : Primera Opción
+
+Cuando tengamos nuestras bases de datos podemos buscarlas en nuestra dispositivo a traves de la función
+
+> file.choose()
+
+Despues de escribir *file.chose()* en el script, solo debemos correr (Run)la función sin agregarle nada en el parentesis. Luego nos aparecerá una ventana para poder buscar nuestra base de datos y darle solo **Abrir**.
+
+A continuación en la **Consola** se mostrará la dirección de donde esta nuestra base de datos. Ejemplo
+
+> "D:\\SCRIPTS HECHOS EN r\\dfcorFSFI_1.sav"
+
+> "D:\\SCRIPTS HECHOS EN r\\ded.csv"
+
+La primera dirección ***.sav*** pertenece a un archivo de ***spss*** y el segundo ***.csv*** a un archivo excel.
+
+Luego de obtener esas direcciones debemos leerlas de la siguiente manera. 
+
+> datos1<-read.csv("D:\\SCRIPTS HECHOS EN r\\ded.csv")
+
+> datos2<-read_sav("D:\\SCRIPTS HECHOS EN r\\dfcorFSFI_1.sav")
+
+Como podemos ver, el lugar donde va estar presente la base de datos se va a llamar ***datos1*** o ***datos2***. Podemos colocarle cualquier nombre, lo importate es colocar **<-** y luego escribir ***read.*** nos aparecerán diferentes opciones, pero como nosotros tenemos bases de datos de **spss** y **excel** colocarmos ***.csv*** y ***.sav***. 
+
+Con esto ya se guardarán las bases de datos que querramos
+
+
+
+## Llamado de Base de Datos : Segunda Opción
+
+Si nuestra base de datos se encuentran en una base libre en la internet, como por ejemplo la Plataforma Nacional de Datos Abiertos (https://www.datosabiertos.gob.pe/) que tiene el Perú. Solo debemos dirigirnos a cualquiera de las bases y copiar el link de dirección 
+
+![Figura 3 : *Plataforma Nacional de Datos Abiertos*](https://www.howtogeek.com/wp-content/uploads/2020/09/android-copy-paste-9.jpg?trim=1,1&bg-color=000&pad=1,1.png)
+
+Luego vamos a colocarla entre los parentesis de **vroom("")** el cual nos va a permitir leer bases de datos de la internet
+
+> datos3 <- vroom("https://devops11.osce.gob.pe/confluence/x/cpfdAQ")
+
+
+
+
+# Estadistica Descriptiva
+
+Despues de tener nuestra base de datos en el **Environment** podemos hacer el analisis descriptivo de los datos que tengamos, contemplando la misma filosofia de presentación de los datos (Ver Figura 4). 
+
+
+
+
+![*Figura 4 : Filosofia de los Datos*](https://beatrizmilz.github.io/2020-R-Ladies-SP-Basico/img/tidy-1.png)
+
+
+
+En esta ocasión vamos a trabajar con la base de datos **iris**, la cual nos muestra caracteristicas de diferentes plantas. Vamos a llamar la base de datos con la función
+
+
+> data("iris")
+
+
+Está al momento de correr (Run) debe aparecer en el **Environment** y solo debemos darle clic  para que aparezca como un **Data Frame**.
+
+
+## Exploración de la Base de Datos
+
+Al momento de tener nuestra base de datos, podemos hacer nuestra exploración de está y verificar lo que tenemos en ella. Para esto debemos instalar y llamar los paquetes **dplyr** , **tidyverse** y **pastecs**
+
+
+> library(dplyr)
+
+> library(tidyverse)
+
+> library(pastecs)
+
+
+Con estos paquetes ya llamados podemos hacer la exploración respectiva de nuestos datos 
+
+### class()
+
+Esta opción nos permite ver que clase es nuestra Base de Datos, como ya indique **iris** es un ***Data Frame***, sin embargo, si nuestra base de datos aparece como un **integer**, **tabla**, **vector**, **matrix** etc. Podemos verificar solo poniendo:
+
+```{r}
+class(iris)
+```
+
+Como se observa al correr la linea, nos va a salir que es un ***"data.frame"***. Sin embargo, si nuestros datos los creamos nosotros o aparecen en **Values** podemos transformarlo a un **Data Frame** para poder hacer nuestros analisis, que en la mayoria de casos de hacen con este formato
+
+La transformación de nuestra base de datos se realiza de la siguiente manera. Vamos crear un conjunto que contenga números del 1 al 50 y lo guardamos en **ejemplo**
+
+```{r}
+ejemplo<-c(1:50)
+```
+
+Luego de correr ejemplo, vamos poder el siguiente comando. El cual nos permitirá cambiar nuestro conjunto de datos a un data frame a traves de la función ***as.data.frame***
+
+```{r}
+ejemplo<-as.data.frame(ejemplo)
+```
+
+### nrow(), ncol() y dim()
+
+Estas opciones nos permitirán ver cuantas filas (*nrow*) y columnas (*ncol*) tiene nuestros datos.
+
+```{r}
+nrow(iris)
+```
+
+
+```{r}
+ncol(iris)
+```
+
+La función ***dim()*** nos permitirá ver las dos dimenciones tanto columnas como filas
+
+```{r}
+dim(iris)
+```
+
+### colnames(), objects() y ls()
+
+Estas opciónes nos permitirán ver los nombres de nuestras columnas (Variables)
+
+```{r}
+colnames(iris)
+```
+
+```{r}
+objects(iris)
+```
+
+```{r}
+ls(iris)
+```
+
+
+### head() y tail()
+
+Estas funciones nos mostrarán las primera como las ultimas filas de nuestra base de datos
+
+**head()** nos mostrará las solo las primeras 5 filas de nuesta base de datos, sin embargo, podemos poner la cantidad de filas que querremos que salga, con solo agregar ***n=*** o solo colocando el número
+
+```{r}
+head(iris)
+```
+
+```{r}
+head(iris, n=10)
+```
+
+
+**tail()** nos mostrará las solo las ultimas 5 filas de nuesta base de datos, sin embargo, podemos poner la cantidad de filas que querremos que salga, con solo agregar ***n=*** o solo colocando el número
+
+```{r}
+tail(iris)
+```
+
+```{r}
+tail(iris, n=10)
+```
+
+
+### str(), glimpse() y sapply()
+
+Estas funciones nos van a permitir ver la estructura de nuestra base de datos. **str()** como **glimpse()** cumplen la misma función
+
+
+```{r}
+str(iris)
+```
+
+```{r eval=FALSE}
+glimpse(iris)
+```
+
+
+
+En el caso de ***sapply()*** junto con ***class*** nos mostrará que tipo de variable son nuestros datos
+
+```{r}
+sapply(iris, class)
+```
+
+El tipo de variable estará determinada por las siguientes caracteristicas (Ver Figura 5)
+
+
+
+![*Figura 5 : Tipos de Variables (Diseño realizado por RLadies Cuernavaca)*](https://github.com/RLadiesCuerna/meetup_2020_ago/blob/master/slides/images/TiposDeVariables.jpg?raw=true.png)
+
+
+
+
+## Medidas Numericas Descriptivas
+
+> *Nota: Se van a utilizar el simbolo de dolar "$" para determinar la variables que vamos a escoger para su análisis*
+
+
+### mean(), median()
+
+La media aritmentica (***mean***), mejor conocida como media, es la más común de las tendencias centrales. Sin embargo, se debe tomar en cuenta que si nuestros datos tienen valores extremos, no va a describir correctamente
+
+La mediana (***median***), es el valor que divide en dos partes iguales un conjunto de datos ya ordenados. Esta a comparación de la media, no se ve afectada por los valores extremos 
+
+```{r}
+mean(iris$Sepal.Length)
+```
+
+```{r}
+median(iris$Sepal.Length)
+```
+
+
+### range()
+
+El rango (***range***) nos permite ver cual es el valor máximo y minimo de nuestra variable 
+
+```{r}
+range(iris$Sepal.Length)
+```
+
+Se pueden tambien ver esto a traves de las funciones ***min()*** y ***max()***
+
+```{r}
+min(iris$Sepal.Length)
+```
+
+```{r}
+max(iris$Sepal.Length)
+```
+
+
+### quantile()
+
+Los cuantiles (***quantile***) determinan los valores que estan debajo de un procentaje
+
+```{r}
+quantile(iris$Sepal.Length)
+```
+
+
+### sd()
+
+La desviación estandar o desviación tipica mide cuanto es la disperción de una observación respecto a la media. Es decir que tanto los valores estan por debajo o encima de la media. El cuadrado de la desviación estandar es la varianza 
+
+```{r}
+sd(iris$Sepal.Length)
+```
+
+```{r}
+var(iris$Sepal.Length)
+```
+
+
+### sapply() y tapply()
+
+La función ***sapply()*** nos permite aplicar las estadisticas anteriores a la vez, siendo claro esas variables cuantitativas
+
+```{r}
+sapply(iris[1:4], mean)
+```
+
+```{r}
+sapply(iris[1:4], sd)
+```
+
+
+La función ***tapply()*** nos permite aplicar las estadisticas vistas y además agregarle una variable cualitativa o nominal
+
+```{r}
+tapply(iris$Sepal.Length, iris$Species, mean)
+```
+
+```{r}
+tapply(iris$Sepal.Length, iris$Species, sd)
+```
+
+
+### summary() y stat.desc()
+
+La funciónes ***summary()*** y ***stat.desc()*** nos permite hacer un resumen de las medidas que ya hemos visto 
+
+```{r}
+summary(iris)
+```
+
+```{r eval=FALSE}
+stat.desc(iris)
+```
+
+
+Un paquete interesante es el ***packages(summarytools)*** el cual nos permitirá visualizar diferentes aspectos de nuestras variables, agregando figuras y descripciones más comprensibles. Para ver su gráfica debemos colocarla de la siguiente manera, en nuestro caso nuestra base de datos es **iris** por eso la colocarmos entre los parentesis 
+
+
+> view( dfSummary ( iris ) )
+
+```{r eval=FALSE}
+view(dfSummary(iris))
+```
+
+
+
+# Manipulación de los datos usando "Tidyverse"
+
+![*Gráfica realizada por Allison Horst*](https://github.com/allisonhorst/stats-illustrations/raw/master/rstats-artwork/tidydata_7.jpg)
+
+
+
+El tidyverse es un paquete que nos ayuda a manipular nuestra base de datos como nosotros querremos, siendo muy util para separar, renombrar, filtrar, crear nuevas variables, modificar la misma estructura de la base de datos etc.
+
+Este pequete es muy util para determinar que datos vamos a utilizar para su analisis. Lo que debemos hacer para poder hacer esa manipulación debemos tener instalados los siguientes paquetes
+
+> ***library(tidyverse)***
+
+> ***library(dplyr)***
+
+
+### Estructura basica 
+
+Podemos usar las funciones que querramos en todas las variables que querramos, lo importante es seguir esta estructura 
+
+
+> ***función(Base de datos, VariableX, VariableY....)***
+
+
+
+### Función Pipe **%>%**
+
+La función pipe nos va a ayudar a concatenar diferentes funciones que nosotros vamos a realizar siendo esta determinada solo por la división de estas funciones solo con agregarle ***%>%***, la cual se hace escribiendo de forma manual o con ***control + shift + M***
+
+Esta función la vamos a utilizar en las funciones siguientes para que entendamos mejor su uso 
+
+
+
+### select()
+
+Esta función nos ayuda a selecionar las diferentes variables que nosotros querramos tener a nuestra diposición 
+
+Ejemplo 1: vamos a selecionar solo una variable de nuestra base de datos **iris**, en este caso nos saldrá la variable **Sepal.Length** con todos sus datos
+
+```{r eval=FALSE}
+select(iris,Sepal.Length)
+```
+
+Ejemplo 2: ahora vamos a seleccionar 3 variables de la base de datos iris
+
+```{r eval=FALSE}
+select(iris,Sepal.Length,Sepal.Width,Petal.Length)
+```
+
+
+Sin embargo, si nuestras variables estan de manera consecutiva y queremos separarlas de las otras que no necesitemos podemos utilizar los dos puntos":", como en el siguiente ejemplo, el cual nos seleccionará en bloque las variables de ***Sepal.Length*** hasta ***Petal.Width***
+
+```{r eval=FALSE}
+select(iris,Sepal.Length:Petal.Width)
+```
+
+
+Otro uso del cual nos puede servir es solo retirar la variable no deseada con el simbolo menos "-", el cual nos separará la variable que no querramos utilizar de nuestra base de datos. En este caso vamos a separar de nuestra base de datos la variable ***Species*** 
+
+```{r eval=FALSE}
+select(iris, -Species)
+```
+
+
+Podemos agregarle otras variables que no querramos tener
+
+```{r eval=FALSE}
+select(iris, -Species, -Petal.Width, -Petal.Length)
+```
+
+
+### Uso de Pipe %>% 
+
+El pipe nos permitirá cambiar la estructura que se menciono en la estructura basica, variando en que nuestra base de datos estará fuera y la función pipe separará nuestras funciones
+
+
+Ejemplo 1 : como se puede ver nuestra base de datos ***iris*** esta primerá luego sigue ***%>%*** luego la función, en este caso ***select()*** que esta seleccionando la variable **Species**
+
+```{r eval=FALSE}
+iris %>% select(Species)
+```
+
+Podemos utilizar esta estructura con los ejemplos que hemos hecho 
+
+```{r eval=FALSE}
+iris %>% select(Sepal.Width,Petal.Length,Species)
+```
+
+```{r eval=FALSE}
+iris %>% select(-Sepal.Width,-Petal.Length,-Species)
+```
+
+
+
+
+### filter()
+
+Para realizar un analisis más profundo de las variables por una o más caracteristicas debemos usar ***filter()*** esta función retiene las observaciones o condiciones que hagamos a la variable filtrada. Y esta utiliza los siguientes operadores lógicos
+
+| |
+|:------------:|:-----------:|
+| == | si x es igual que y |
+| > | Si x es mayor que y |
+| < | si x es menor que y |
+| >= | Si x es mayor o igual que y |
+| <= | si x es menor o igual que y | 
+| != | distinto de | 
+| is.na | si x es NA |
+| !is.na | si x no es NA |
+| "&" | Si significa y |
+
+
+
+
+### mutate()
+
+If you are having a hard time with your [Capitulo 1](#ab),[Capitulo 2](#abc), [Capitulo 3](#abcd), we have some tutors who can help you. 
+
+
+> ⚠️ **Warning**: Be very careful here!
+
+> ✔ **Warning**: Be very careful here!
+
+
+<div class="alert alert-block alert-info">
+<b> &#x1F4CC; Tip: this is how. </b></div>
+
+<div class="alert alert-block alert-warning">
+<b> &#x26D4; Tip: this is how. </b></div>
+
+<div class="alert alert-block alert-danger">
+<b> &#x2757; Tip: this is how. </b></div>
+
+<div class="alert alert-block alert-success">
+<b> &#x1F6D1; Tip: this is how . </b></div>
+
+<div class="alert alert-block alert-success">
+<b><img src="https://previews.123rf.com/images/dvarg/dvarg1301/dvarg130100068/17473286-peligro-se%C3%B1al-de-advertencia-prestar-signo-de-exclamaci%C3%B3n-ilustraci%C3%B3n-sobre-fondo-blanco-para-el-dis.jpg" width="46" height="47" style="float:right"> Tip: this is how Welcome | Geocomputation with R is for people who want to analyze.</b></div>
+
+
+<div class="alert alert-block alert-success">
+<b><img src="https://previews.123rf.com/images/dvarg/dvarg1301/dvarg130100068/17473286-peligro-se%C3%B1al-de-advertencia-prestar-signo-de-exclamaci%C3%B3n-ilustraci%C3%B3n-sobre-fondo-blanco-para-el-dis.jpg" width="46" height="47" style="vertical-align:middle;margin:0px 10px"> Tip: this is how Welcome | Geocomputation with R is for people who want to analyze.</b></div>
+
+<div class="alert alert-block alert-note">
+<b><img src="https://previews.123rf.com/images/dvarg/dvarg1301/dvarg130100068/17473286-peligro-se%C3%B1al-de-advertencia-prestar-signo-de-exclamaci%C3%B3n-ilustraci%C3%B3n-sobre-fondo-blanco-para-el-dis.jpg" width="46" height="47" style="float:left;margin:0px 7px"></b>Tip: this is how Para conseguir que una imagen tenga el texto rodeando a la propia imagen This code loads the Semrush logo, aligns it vertically to the middle of the page, and adds a 50-pixel width margin to the left and right side of the image. Now, no text will appear within 50 pixels on either side of the image.
+.</div>
+
+<div class="alert alert-block alert-note">
+<b><img src="https://key0.cc/images/small/2110347_032240d15e596419bfa277be4d80bdb2.png" width="46" height="47" style="float:left"></b>Tip: this is how Para conseguir que una imagen tenga el texto rodeando a la propia imagen.</div>
+
+<div class="alert alert-block alert-note">
+<b><img src="https://cdn.pixabay.com/photo/2014/04/03/10/11/exclamation-mark-310101_1280.png" width="46" height="47" style="float:left"></b>Tip: this is how Para conseguir que una imagen tenga el texto rodeando a la propia imagen.</div>
+
+
+<div class="alert alert-block alert-note">
+<b><img src="https://www.pngmart.com/files/17/Warning-PNG-Clipart.png" width="46" height="47" style="float:left"></b>Tip: this is how Para conseguir que una imagen tenga el texto rodeando a la propia imagen.</div>
+
+
+```prolog
+IMPORTANTE
+```
+
+
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Well done!</h4>
+  <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+  <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+</div>
+
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+<strong>Holy guacamole!</strong> You should check in on some of those fields below.</div>
+
+
+<blockquote style="color:#FFFFFF; font-size: 20px; background: #A7333F; margin: 10px 100px; line-height:1; padding: 80px 50px">
+
+hola amigos esta es una guia la cual
+
+</blockquote>
+
+# Primera parte {-}
+
+### summarise() y group_by()
+
+### count()
+
+### rename()
+
+
+
+
+
+
+
+
+
+
